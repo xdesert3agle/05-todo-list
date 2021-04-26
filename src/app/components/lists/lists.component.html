@@ -1,0 +1,21 @@
+<ion-list class="ion-no-padding">
+	<ion-item-sliding *ngFor="let list of listsService.lists | finished: finished">
+		<ion-item (click)="openListDetails(list)" class="ion-activatable ripple-parent ion-no-padding" detail>
+			<ion-label>{{ list.title }}</ion-label>
+			
+			<ion-badge *ngIf="list.getPending() > 0; else finishedList" slot="end" color="tertiary">
+				{{ list.getPending() }} {{ list.getPending() > 1 ? ' pendientes' : ' pendiente' }}
+			</ion-badge>
+			<ng-template #finishedList>
+				<ion-badge class="finished-badge" slot="end" color="success">Terminada</ion-badge>
+			</ng-template>
+			<ion-ripple-effect type="unbounded"></ion-ripple-effect>
+		</ion-item>
+		
+		<ion-item-options side="end">
+			<ion-item-option (click)="deleteList(list)" color="danger" expandable>
+				<ion-icon name="close" slot="icon-only"></ion-icon>
+			</ion-item-option>
+		</ion-item-options>
+	</ion-item-sliding>
+</ion-list>

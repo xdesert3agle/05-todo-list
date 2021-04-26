@@ -1,0 +1,42 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>{{ list.title }}</ion-title>
+		<ion-buttons slot="start">
+			<ion-back-button color="tertiary" text="" defaultHref="/"></ion-back-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-list>
+		<ion-item>
+			<ion-label position="stacked">Nombre de la nueva tarea</ion-label>
+			<ion-input type="text"
+			           (keyup.enter)="addNewTask()"
+			           [(ngModel)]="newTaskTitle"
+			           placeholder="Conseguir la Gema del alma..."></ion-input>
+		</ion-item>
+	</ion-list>
+	
+	<ion-list>
+		<ion-list-header *ngIf="list.items.length > 0">
+			<ion-label>Lista de tareas</ion-label>
+		</ion-list-header>
+		
+		<ion-item-sliding *ngFor="let task of list.items; let i = index;">
+			<ion-item>
+				<ion-label>{{ task.title }}</ion-label>
+				<ion-checkbox color="primary"
+				              slot="start"
+				              [(ngModel)]="task.finished"
+				              (ionChange)="checkboxChanged()"></ion-checkbox>
+			</ion-item>
+			
+			<ion-item-options side="end">
+				<ion-item-option (click)="deleteTask(i)" color="danger">
+					<ion-icon slot="icon-only" name="close"></ion-icon>
+				</ion-item-option>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+</ion-content>
